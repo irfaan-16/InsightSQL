@@ -15,8 +15,13 @@ interface Session {
   expires: string;
 }
 
+interface Submission {
+  query: string;
+  status: string;
+  _id: string;
+}
 const SubmissionsList = ({ questionId }) => {
-  const [submissions, setSubmissions] = useState<[] | null>(null);
+  const [submissions, setSubmissions] = useState<Submission[] | null>(null);
   const sessionData = useSession();
   const session: Session | null = sessionData.data as Session | null;
   const userMongoDbID = session?.user?.mongoDbId;
@@ -33,7 +38,7 @@ const SubmissionsList = ({ questionId }) => {
       console.log(submissions?.submissions?.[0]?.submittedQueries);
     };
     fetchSubmissions();
-  }, []);
+  }, [questionId]);
 
   return (
     <div>
@@ -43,7 +48,7 @@ const SubmissionsList = ({ questionId }) => {
         </h1>
       ) : (
         submissions?.map((sub) => {
-          return <SubmissionsTile submission={sub} />;
+          return <SubmissionsTile key={sub._id} submission={sub} />;
         })
       )}
     </div>
