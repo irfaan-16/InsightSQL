@@ -1,10 +1,11 @@
 "use client";
-import { Play, Terminal, UploadCloud } from "lucide-react";
+import { Loader, Play, Terminal, UploadCloud } from "lucide-react";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { useSession } from "next-auth/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
+import Table from "./Table";
 interface User {
   name: string;
   email: string;
@@ -16,7 +17,10 @@ interface Session {
   user: User;
   expires: string;
 }
-
+interface Result {
+  columns: [string];
+  output: [{}];
+}
 const containsRestrictedWords = (query: string, restrictedWords: string[]) => {
   const containsRestrictedWord = restrictedWords.some((word) => {
     if (query.toLowerCase().includes(word.toLowerCase())) {
@@ -40,14 +44,18 @@ const CodeSpace = ({ ans, questionId }) => {
     "rollback",
   ];
 
+  const [isExecuting, setIsExecuting] = useState<boolean>(false);
+  const [expectedResult, setExpectedResult] = useState<Result | null>(null);
+  const [actualResult, setActualResult] = useState<Result | null>(null);
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  let correctOutput = null; //to cache the correct output
   const sessionData = useSession();
   const session: Session | null = sessionData.data as Session | null;
 
-  console.log(ans);
   const evaluateResult = async (toToSubmitted: boolean) => {
     const toastId = toast.loading("Executing your Query...⌛");
+    setIsExecuting(true);
+
     const userQuery = inputRef.current?.value;
     if (userQuery?.trim().length === 0) {
       toast.update(toastId, {
@@ -56,6 +64,7 @@ const CodeSpace = ({ ans, questionId }) => {
         isLoading: false,
         autoClose: 5000,
       });
+      setIsExecuting(false);
       return;
     }
     if (containsRestrictedWords(userQuery!, restrictedCommands)) {
@@ -65,14 +74,20 @@ const CodeSpace = ({ ans, questionId }) => {
         isLoading: false,
         autoClose: 5000,
       });
+      setIsExecuting(false);
       return;
     }
+
     const response = await fetch("/api/evaluateresult", {
       method: "POST",
       body: JSON.stringify({ query1: ans, query2: userQuery }),
     });
 
-    const { result } = await response.json();
+    const { expected, result, isCorrectQuery } = await response.json();
+    setExpectedResult(expected);
+    setActualResult(result);
+    console.log(`Expected:${{ ...expected }}\tResult:${{ ...result }}`);
+    console.log(expected);
 
     if (toToSubmitted) {
       const response = await fetch("/api/test", {
@@ -81,12 +96,12 @@ const CodeSpace = ({ ans, questionId }) => {
           userId: session?.user?.mongoDbId,
           questionId,
           submittedQuery: inputRef?.current?.value,
-          status: result ? "Accepted" : "Rejected",
+          status: isCorrectQuery ? "Accepted" : "Rejected",
         }),
       });
     }
 
-    if (result) {
+    if (isCorrectQuery) {
       toast.update(toastId, {
         render: `Query ${
           toToSubmitted ? "Submitted" : "Executed"
@@ -103,6 +118,8 @@ const CodeSpace = ({ ans, questionId }) => {
         isLoading: false,
       });
     }
+
+    setIsExecuting(false);
   };
 
   return (
@@ -115,19 +132,29 @@ const CodeSpace = ({ ans, questionId }) => {
         {session?.user && (
           <div className="flex gap-2 items-center">
             <Button
+              disabled={isExecuting}
               variant="ghost"
               className="text-[#25C244] font-bold bg-zinc-800"
               onClick={() => evaluateResult(false)}
             >
-              <Play size={18} className="mr-2" />
+              {isExecuting ? (
+                <Loader className="animate-spin mr-2" />
+              ) : (
+                <Play size={18} className="mr-2" />
+              )}
               Run
             </Button>
             <Button
+              disabled={isExecuting}
               variant="ghost"
               className="text-[#25C244] font-bold bg-zinc-800"
               onClick={() => evaluateResult(true)}
             >
-              <UploadCloud stroke="#25C244" strokeWidth={2} className="mr-2" />
+              {isExecuting ? (
+                <Loader className="animate-spin mr-2" />
+              ) : (
+                <UploadCloud stroke="#25C244" className="mr-2" />
+              )}
               Submit
             </Button>
           </div>
@@ -139,6 +166,11 @@ const CodeSpace = ({ ans, questionId }) => {
         id="answer"
         placeholder="Write your MySQL query statement here."
       />
+
+      <div>
+        <Table table={expectedResult} />
+        <Table table={actualResult} />
+      </div>
     </div>
   );
 };

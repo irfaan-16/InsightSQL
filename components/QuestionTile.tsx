@@ -3,6 +3,8 @@ import { Badge } from "./ui/badge";
 import Link from "next/link";
 
 const QuestionTile = ({ title, description, difficulty, id }) => {
+  console.log(id);
+
   return (
     <Link href={`/question/${id}`}>
       <Card className="cursor-pointer">

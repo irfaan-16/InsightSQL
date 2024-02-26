@@ -7,8 +7,7 @@ import {
 import CodeSpace from "./CodeSpace";
 import EditorSideView from "./EditorSideView";
 
-const QuestionDetails = async ({  question }) => {
-
+const QuestionDetails = async ({ question }) => {
   return (
     <main className="bg-zinc-950 max-h-[calc(100vh-100px)] p-8 overflow-hidden">
       <ResizablePanelGroup
@@ -29,7 +28,7 @@ const QuestionDetails = async ({  question }) => {
             <ResizablePanel defaultSize={40}>
               <CodeSpace
                 ans={question.ans}
-                questionId={question._id as string}
+                questionId={JSON.stringify(question._id)}
               />
             </ResizablePanel>
             <ResizableHandle withHandle className="border-2 border-zinc-800" />

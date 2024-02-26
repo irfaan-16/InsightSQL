@@ -21,6 +21,7 @@ interface Submission {
   _id: string;
 }
 const SubmissionsList = ({ questionId }) => {
+  console.log(questionId);
   const [submissions, setSubmissions] = useState<Submission[] | null>(null);
   const sessionData = useSession();
   const session: Session | null = sessionData.data as Session | null;
@@ -30,7 +31,10 @@ const SubmissionsList = ({ questionId }) => {
     const fetchSubmissions = async () => {
       const res = await fetch("/api/submissions", {
         method: "POST",
-        body: JSON.stringify({ userMongoDbID, questionId }),
+        body: JSON.stringify({
+          userMongoDbID,
+          questionId: JSON.parse(questionId),
+        }),
       });
       const { submissions } = await res.json();
 

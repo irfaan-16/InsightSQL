@@ -2,78 +2,13 @@ import { getQuestions } from "@/utils/dbfunctions";
 import QuestionsList from "./QuestionsList";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { NextRequest, NextResponse } from "next/server";
 
 const QuestionsView = async () => {
-  const questions = await getQuestions();
-  
-  //   const questions = [
-  //     // {
-  //     //   title: "Two sum",
-  //     //   description: `Given an array of integers nums and an integer target, return indices of the two numbers such that they
-  //     //             add up to target.`,
-  //     //   difficulty: "Easy",
-  //     // },
-  //     {
-  //       title: "Duplicate Email",
-  //       description: [
-  //         {
-  //           groupTitle: "Person Table",
-  //           groupTable: ` +-------------+---------+
-  // | Column Name | Type    |
-  // +-------------+---------+
-  // | id          | int     |
-  // | email       | varchar |
-  // +-------------+---------+`,
-  //           groupDesc:
-  //             "id is the primary key (column with unique values) for this table.Each row of this table contains an email. The emails will not contain uppercase letters.",
-  //         },
-  //       ],
-  //       task: `Write a solution to report all the duplicate emails.
-  //              Note that it's guaranteed that the email field is not NULL.
-  //             Return the result table in any order. The result format is in the following example.`,
-  //       difficulty: "Easy",
-  //       examples: [
-  //         {
-  //           input: [
-  //             {
-  //               tableName: "Person",
-  //               table: `+----+---------+
-  // | id | email   |
-  // +----+---------+
-  // | 1  | a@b.com |
-  // | 2  | c@d.com |
-  // +----+---------+`,
-  //             },
-  //           ],
-  //           output: `+---------+
-  // | email   |
-  // +---------+
-  // | a@b.com |
-  // +---------+`,
-  //           explanation:
-  //             "this is a random explanation for this question because i'm too busy procrastinating bahahahaahahahah!",
-  //         },
-  //       ],
-  //     },
-  //     // {
-  //     //   title: "Reverse Integer",
-  //     //   description: `Given a signed 32-bit integer x, return x with its digits reversed.`,
-  //     //   difficulty: "Easy",
-  //     // },
-
-  //     // {
-  //     //   title: "Valid Parentheses",
-  //     //   description: ` Given a string s containing just the characters '(', ')', ', ', '[' and ']', determine if the input
-  //     //             string is valid. An input string is valid if:`,
-  //     //   difficulty: "Easy",
-  //     // },
-
-  //     // {
-  //     //   title: "Longest Substring Without Repeating Characters",
-  //     //   description: `Given a string s, find the length of the longest substring without repeating characters.`,
-  //     //   difficulty: "Medium",
-  //     // },
-  //   ];
+  let res, req;
+  // const questions = await getQuestions();
+  const response = await import("../app/api/questions/route");
+  const { questions } = await (await response.GET(req, res)).json();
 
   return (
     <main className="flex flex-col items-center gap-4 p-4 md:gap-8 md:p-10 dark bg-zinc-950 min-h-screen">

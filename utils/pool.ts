@@ -9,7 +9,10 @@ export async function executeQuery(query: string) {
   const client = await pool.connect();
   try {
     const output = await client.query(query);
-    return output.rows;
+    const { fields } = output;
+    const columns = fields.map((col) => col.name);
+    console.log(columns);
+    return { columns, output: output.rows };
   } finally {
     client.release();
   }

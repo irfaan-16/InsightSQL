@@ -9,12 +9,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   if (JSON.stringify(result1) === JSON.stringify(result2)) {
     result = true;
-    console.log(result1, result2);
-    console.log("Your ans is correct!!");
   } else {
     console.log(result1, result2);
-    console.log("incorrect");
   }
-
-  return new Response(JSON.stringify({ result }), { status: 200 });
+  return new Response(
+    JSON.stringify({
+      result: result2,
+      expected: result1,
+      isCorrectQuery: result,
+    }),
+    { status: 200 }
+  );
 }
