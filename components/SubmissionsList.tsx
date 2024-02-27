@@ -67,14 +67,17 @@ const SubmissionsList = ({ questionId }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-zinc-900 p-2 mb-2">
-        <p
-          className="flex items-center gap-2 bg-zinc-800 p-2 w-fit rounded-sm cursor-pointer text-[14px] hover:bg-zinc-950 transition-colors select-none"
-          onClick={() => toggleSortMode()}
-        >
-          Status <ArrowDownUp size={16} />
-        </p>
-      </div>
+      {session?.user && (
+        <div className="bg-zinc-900 p-2 mb-2">
+          <p
+            className="flex items-center gap-2 bg-zinc-800 p-2 w-fit rounded-sm cursor-pointer text-[14px] hover:bg-zinc-950 transition-colors select-none"
+            onClick={() => toggleSortMode()}
+          >
+            Status <ArrowDownUp size={16} />
+          </p>
+        </div>
+      )}
+
       {submissions === null ? (
         <>
           <Skeleton className="h-8 mb-2" />

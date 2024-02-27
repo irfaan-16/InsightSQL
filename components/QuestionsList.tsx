@@ -5,7 +5,7 @@ export default async function QuestionsList({ questions }) {
     <div className="grid w-full gap-4 max-w-4xl">
       {questions?.map((question) => (
         <QuestionTile
-          key={question.id}
+          key={question._id}
           title={question.title}
           description={question.description}
           difficulty={question.difficulty}
