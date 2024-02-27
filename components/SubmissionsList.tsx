@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import SubmissionsTile from "./SubmissionTile";
 import { Skeleton } from "./ui/skeleton";
 import { motion } from "framer-motion";
+import { ArrowDownUp } from "lucide-react";
 
 interface User {
   name: string;
@@ -28,7 +29,21 @@ const SubmissionsList = ({ questionId }) => {
   const sessionData = useSession();
   const session: Session | null = sessionData.data as Session | null;
   const userMongoDbID = session?.user?.mongoDbId;
+  const toggleSortMode = () => {
+    const currentOrder =
+      submissions?.[0]?.status === "Accepted" ? "asc" : "desc";
+    const newOrder = currentOrder === "asc" ? "desc" : "asc";
 
+    sortList(newOrder);
+  };
+  const sortList = (order: string) => {
+    const sortedArr = [...(submissions || [])]?.sort((a, b) => {
+      return order === "asc"
+        ? a.status.localeCompare(b.status)
+        : b.status.localeCompare(a.status);
+    });
+    setSubmissions(sortedArr);
+  };
   useEffect(() => {
     const fetchSubmissions = async () => {
       const res = await fetch("/api/submissions", {
@@ -47,7 +62,19 @@ const SubmissionsList = ({ questionId }) => {
   }, [questionId]);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="bg-zinc-900 p-2 mb-2">
+        <p
+          className="flex items-center gap-2 bg-zinc-800 p-2 w-fit rounded-sm cursor-pointer text-[14px] hover:bg-zinc-950 transition-colors select-none"
+          onClick={() => toggleSortMode()}
+        >
+          Status <ArrowDownUp size={16} />
+        </p>
+      </div>
       {submissions === null ? (
         <>
           <Skeleton className="h-8 mb-2" />
@@ -64,7 +91,7 @@ const SubmissionsList = ({ questionId }) => {
           return <SubmissionsTile key={sub._id} submission={sub} idx={idx} />;
         })
       )}
-    </div>
+    </motion.div>
   );
 };
 

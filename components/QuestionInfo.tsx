@@ -1,7 +1,7 @@
 import { Badge } from "./ui/badge";
 
 const QuestionInfo = ({ question }) => {
-  return (  
+  return (
     <div className="overflow-auto">
       <div className="flex gap-2 items-center mb-4">
         <h1 className="text-3xl font-bold text-zinc-50">{question.title}</h1>
@@ -45,7 +45,7 @@ const QuestionInfo = ({ question }) => {
                 {example.input.map((input) => {
                   return (
                     <div key={input._id}>
-                      <Badge className="text-zinc-200 font-bold p-2 bg-zinc-800 rounded-2xl">
+                      <Badge className="text-zinc-200 font-bold p-2 bg-zinc-800 rounded-2xl hover:bg-zinc-950">
                         {input.tableName}
                       </Badge>
                       <pre className="text-zinc-400">{input.table}</pre>

@@ -9,7 +9,7 @@ const Execution = ({ expectedResult, actualResult }) => {
         <h3 className="text-white font-bold">Execution</h3>
       </div>
 
-      <div className="flex flex-wrap gap-10 px-3 overflow-scroll max-h-[250px]">
+      <div className="flex flex-wrap gap-10 px-3 overflow-auto max-h-[250px] pb-10">
         {expectedResult && (
           <Table table={expectedResult} title="Expected Output" />
         )}

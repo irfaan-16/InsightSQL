@@ -4,9 +4,8 @@ const SubmissionsTile = ({ submission, idx }) => {
   return (
     <motion.div
       className="bg-zinc-900 py-2 px-4 rounded-sm mb-2 cursor-pointer flex gap-3 items-center"
-      initial={{ y: "100px", scale: 0.5, visibility: "hidden", opacity: 0 }}
-      animate={{ y: "0", scale: 1, visibility: "visible", opacity: 1 }}
-      transition={{ duration: 0.3, type: "spring" }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
     >
       <Badge
         className={`${

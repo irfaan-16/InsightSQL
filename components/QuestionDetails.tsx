@@ -1,4 +1,3 @@
-import { Cpu } from "lucide-react";
 import {
   ResizableHandle,
   ResizablePanelGroup,

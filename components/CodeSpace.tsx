@@ -50,6 +50,7 @@ const CodeSpace = ({ ans, questionId }) => {
     "modify",
     "create",
     "rollback",
+    "show",
   ];
 
   const [isExecuting, setIsExecuting] = useState<boolean>(false);
@@ -85,7 +86,6 @@ const CodeSpace = ({ ans, questionId }) => {
       setIsExecuting(false);
       return;
     }
-
     const response = await fetch("/api/evaluateresult", {
       method: "POST",
       body: JSON.stringify({ query1: ans, query2: userQuery }),
@@ -102,7 +102,7 @@ const CodeSpace = ({ ans, questionId }) => {
         method: "POST",
         body: JSON.stringify({
           userId: session?.user?.mongoDbId,
-          questionId,
+          questionId: JSON.parse(questionId),
           submittedQuery: inputRef?.current?.value,
           status: isCorrectQuery ? "Accepted" : "Rejected",
         }),
