@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Provider from "@/components/Providers";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ToastContainer } from "react-toastify";
+import connect from "@/lib/database/mongo";
+
 const inter = Inter({ subsets: ["latin"] });
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,6 +20,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  connect();
   return (
     <html lang="en">
       <Provider>
