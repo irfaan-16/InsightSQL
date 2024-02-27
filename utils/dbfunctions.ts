@@ -1,12 +1,15 @@
 import sql from "../lib/database/neon";
 import Question from "@/lib/models/Question";
+import connect from "@/lib/database/mongo";
 
 export async function getQuestions() {
+  await connect();
   const questions = await Question.find({});
   return questions;
 }
 
 export async function getQuestionById(id: string) {
+  await connect();
   const question = await Question.findById(id);
   return question;
 }

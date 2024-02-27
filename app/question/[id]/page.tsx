@@ -1,8 +1,8 @@
 import QuestionDetails from "@/components/QuestionDetails";
-import { getQuestionById } from "@/utils/dbfunctions";
+import Question from "@/lib/models/Question";
 
 const page = async ({ params }) => {
-  const question = await getQuestionById(params.id);
+  const question = await Question.findById(params.id);
   return <QuestionDetails question={question} />;
 };
 
