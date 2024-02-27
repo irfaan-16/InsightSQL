@@ -17,28 +17,18 @@ const QuestionDetails = async ({ question }) => {
         <ResizablePanel
           className="max-h-[calc(100vh-116px)] pe-4 overflow-auto mr-2"
           defaultSize={65}
+          minSize={30}
           style={{ overflow: "auto" }}
         >
           <EditorSideView question={question} />
         </ResizablePanel>
         <ResizableHandle withHandle className="border-2 border-zinc-800 " />
 
-        <ResizablePanel defaultSize={35}>
-          <ResizablePanelGroup direction="vertical">
-            <ResizablePanel defaultSize={40}>
-              <CodeSpace
-                ans={question.ans}
-                questionId={JSON.stringify(question._id)}
-              />
-            </ResizablePanel>
-            <ResizableHandle withHandle className="border-2 border-zinc-800" />
-            <ResizablePanel className="p-6" defaultSize={60}>
-              <div className="bg-zinc-900 p-2 mb-2 rounded-md flex gap-2">
-                <Cpu stroke="#25C244" strokeWidth={2} />
-                <h3 className="text-white font-bold">Execution</h3>
-              </div>
-            </ResizablePanel>
-          </ResizablePanelGroup>
+        <ResizablePanel defaultSize={35} minSize={25}>
+          <CodeSpace
+            ans={question.ans}
+            questionId={JSON.stringify(question._id)}
+          />
         </ResizablePanel>
       </ResizablePanelGroup>
     </main>

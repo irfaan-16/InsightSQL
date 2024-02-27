@@ -1,11 +1,18 @@
 "use client";
-import { Loader, Play, Terminal, UploadCloud } from "lucide-react";
+import { Cpu, Loader, Play, Terminal, UploadCloud } from "lucide-react";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { useSession } from "next-auth/react";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
-import Table from "./Table";
+import Execution from "./Execution";
+
+import {
+  ResizableHandle,
+  ResizablePanelGroup,
+  ResizablePanel,
+} from "./ui/resizable";
+
 interface User {
   name: string;
   email: string;
@@ -17,6 +24,7 @@ interface Session {
   user: User;
   expires: string;
 }
+
 interface Result {
   columns: [string];
   output: [{}];
@@ -123,55 +131,61 @@ const CodeSpace = ({ ans, questionId }) => {
   };
 
   return (
-    <div className="px-4">
-      <div className="bg-zinc-900 p-2 mb-2 rounded-md flex gap-2 items-center justify-between">
-        <div className="flex gap-2">
-          <Terminal strokeWidth={2} stroke="#25C244" />
-          <h3 className="text-white font-bold">Code</h3>
-        </div>
-        {session?.user && (
-          <div className="flex gap-2 items-center">
-            <Button
-              disabled={isExecuting}
-              variant="ghost"
-              className="text-[#25C244] font-bold bg-zinc-800"
-              onClick={() => evaluateResult(false)}
-            >
-              {isExecuting ? (
-                <Loader className="animate-spin mr-2" />
-              ) : (
-                <Play size={18} className="mr-2" />
-              )}
-              Run
-            </Button>
-            <Button
-              disabled={isExecuting}
-              variant="ghost"
-              className="text-[#25C244] font-bold bg-zinc-800"
-              onClick={() => evaluateResult(true)}
-            >
-              {isExecuting ? (
-                <Loader className="animate-spin mr-2" />
-              ) : (
-                <UploadCloud stroke="#25C244" className="mr-2" />
-              )}
-              Submit
-            </Button>
+    <ResizablePanelGroup direction="vertical">
+      <ResizablePanel defaultSize={35}>
+        <div className="mb-3 px-4">
+          <div className="bg-zinc-900 p-2 mb-2 rounded-md flex gap-2 items-center justify-between">
+            <div className="flex gap-2">
+              <Terminal strokeWidth={2} stroke="#25C244" />
+              <h3 className="text-white font-bold">Code</h3>
+            </div>
+            {session?.user && (
+              <div className="flex gap-2 items-center">
+                <Button
+                  disabled={isExecuting}
+                  variant="ghost"
+                  className="text-[#25C244] font-bold bg-zinc-800"
+                  onClick={() => evaluateResult(false)}
+                >
+                  {isExecuting ? (
+                    <Loader className="animate-spin mr-2" />
+                  ) : (
+                    <Play size={18} className="mr-2" />
+                  )}
+                  Run
+                </Button>
+                <Button
+                  disabled={isExecuting}
+                  variant="ghost"
+                  className="text-[#25C244] font-bold bg-zinc-800"
+                  onClick={() => evaluateResult(true)}
+                >
+                  {isExecuting ? (
+                    <Loader className="animate-spin mr-2" />
+                  ) : (
+                    <UploadCloud stroke="#25C244" className="mr-2" />
+                  )}
+                  Submit
+                </Button>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <Textarea
-        ref={inputRef}
-        className="min-h-[100px] text-green-500 font-bold outline-none border-none bg-zinc-900 max-h-[150px]"
-        id="answer"
-        placeholder="Write your MySQL query statement here."
-      />
-
-      <div>
-        <Table table={expectedResult} />
-        <Table table={actualResult} />
-      </div>
-    </div>
+          <Textarea
+            ref={inputRef}
+            className="min-h-[100px] text-green-500 font-bold outline-none border-none bg-zinc-900 max-h-[150px]"
+            id="answer"
+            placeholder="Write your MySQL query statement here."
+          />
+        </div>
+      </ResizablePanel>
+      <ResizableHandle withHandle className="border-2 border-zinc-800" />
+      <ResizablePanel defaultSize={65}>
+        <Execution
+          expectedResult={expectedResult}
+          actualResult={actualResult}
+        />
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 };
 

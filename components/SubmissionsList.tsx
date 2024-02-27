@@ -2,6 +2,8 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import SubmissionsTile from "./SubmissionTile";
+import { Skeleton } from "./ui/skeleton";
+import { motion } from "framer-motion";
 
 interface User {
   name: string;
@@ -46,13 +48,20 @@ const SubmissionsList = ({ questionId }) => {
 
   return (
     <div>
-      {submissions === undefined ? (
+      {submissions === null ? (
+        <>
+          <Skeleton className="h-8 mb-2" />
+          <Skeleton className="h-8 mb-2" />
+          <Skeleton className="h-8 mb-2" />
+          <Skeleton className="h-8 mb-2" />
+        </>
+      ) : submissions === undefined ? (
         <h1 className="text-center text-2xl font-bold mt-5">
           There are no Submisions
         </h1>
       ) : (
-        submissions?.map((sub) => {
-          return <SubmissionsTile key={sub._id} submission={sub} />;
+        submissions?.map((sub, idx) => {
+          return <SubmissionsTile key={sub._id} submission={sub} idx={idx} />;
         })
       )}
     </div>
