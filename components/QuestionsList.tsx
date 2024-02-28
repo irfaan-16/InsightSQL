@@ -9,7 +9,7 @@ export default async function QuestionsList({ questions }) {
           title={question.title}
           description={question.description}
           difficulty={question.difficulty}
-          id={question._id}
+          id={JSON.stringify(question._id)}
         />
       ))}
     </div>

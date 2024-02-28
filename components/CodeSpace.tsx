@@ -94,8 +94,6 @@ const CodeSpace = ({ ans, questionId }) => {
     const { expected, result, isCorrectQuery } = await response.json();
     setExpectedResult(expected);
     setActualResult(result);
-    console.log(`Expected:${{ ...expected }}\tResult:${{ ...result }}`);
-    console.log(expected);
 
     if (toToSubmitted) {
       const response = await fetch("/api/test", {

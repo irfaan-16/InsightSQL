@@ -41,8 +41,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
           },
           { new: true }
         );
-        console.log(`userId:${userId}\tquestionId:${questionId}`);
-        console.log(updatedSubmission);
       } else {
         const sub = await Submission.findOneAndUpdate(
           {
@@ -58,7 +56,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
           },
           { new: true }
         );
-        console.log(sub);
       }
     }
   } catch (err) {

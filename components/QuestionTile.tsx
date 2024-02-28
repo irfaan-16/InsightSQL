@@ -3,10 +3,10 @@ import { Badge } from "./ui/badge";
 import Link from "next/link";
 
 const QuestionTile = ({ title, description, difficulty, id }) => {
-  console.log(id);
+  console.log(JSON.parse(id), "Question tile id");
 
   return (
-    <Link href={`/question/${id}`}>
+    <Link href={`/question/${JSON.parse(id)}`}>
       <Card className="cursor-pointer">
         <CardHeader className="flex flex-row items-center gap-4 ">
           <div className="grid gap-1">
