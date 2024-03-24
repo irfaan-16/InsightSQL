@@ -4,12 +4,12 @@ const QuestionInfo = ({ question }) => {
   return (
     <div className="overflow-auto">
       <div className="flex gap-2 items-center mb-4">
-        <h1 className="text-3xl font-bold text-zinc-50">{question.title}</h1>
-        <Badge className="text-[#25C244]">{question.difficulty}</Badge>
+        <h1 className="text-3xl font-bold text-zinc-50">{question?.title}</h1>
+        <Badge className="text-[#25C244]">{question?.difficulty}</Badge>
       </div>
 
       <div className="p-4">
-        {question.description.map((group) => {
+        {question?.description.map((group) => {
           return (
             <div key={group._id}>
               <Badge className="p-2 mb-4 rounded-2xl bg-zinc-300">
@@ -25,10 +25,10 @@ const QuestionInfo = ({ question }) => {
         })}
       </div>
 
-      <div className="text-white">{question.task}</div>
+      <div className="text-white">{question?.task}</div>
 
       <div className="px-4">
-        {question.examples.map((example, idx) => {
+        {question?.examples.map((example, idx) => {
           return (
             <div
               key={example._id}

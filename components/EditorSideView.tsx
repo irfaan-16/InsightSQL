@@ -19,7 +19,7 @@ const EditorSideView = ({ question }) => {
         <QuestionInfo question={question} />
       </TabsContent>
       <TabsContent value="submissions">
-        <SubmissionsList questionId={JSON.stringify(question._id)} />
+        <SubmissionsList questionId={JSON.stringify(question?._id)} />
       </TabsContent>
     </Tabs>
   );

@@ -7,6 +7,7 @@ import CodeSpace from "./CodeSpace";
 import EditorSideView from "./EditorSideView";
 
 const QuestionDetails = ({ question }) => {
+
   return (
     <main className="bg-zinc-950 max-h-[calc(100vh-100px)] p-8 overflow-hidden">
       <ResizablePanelGroup
@@ -25,8 +26,8 @@ const QuestionDetails = ({ question }) => {
 
         <ResizablePanel defaultSize={35} minSize={25}>
           <CodeSpace
-            ans={question.ans}
-            questionId={JSON.stringify(question._id)}
+            ans={question?.ans}
+            questionId={JSON.stringify(question?._id)}
           />
         </ResizablePanel>
       </ResizablePanelGroup>

@@ -1,17 +1,18 @@
+"use client";
 import QuestionDetails from "@/components/QuestionDetails";
-import Question from "@/lib/models/Question";
-import connect from "@/lib/database/mongo";
-const page = async ({ params }) => {
-  async function getQuestion() {
-    "use server";
-    await connect();
-    const question = await Question.findById(params.id);
-    return question;
-  }
+import { useEffect, useState } from "react";
+const page = ({ params }) => {
+  const [question, setQuestion] = useState<Document | null>(null);
 
-  const question = await getQuestion();
-  console.log(question);
+  useEffect(() => {
+    async function getQuestion() {
+      const response = await fetch(`/api/getquestion?questionId=${params.id}`);
+      const { question } = await response.json();
+      setQuestion(question);
+    }
 
+    getQuestion();
+  }, []);
   return <QuestionDetails question={question} />;
 };
 

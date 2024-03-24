@@ -4,7 +4,9 @@ import Question, { QuestionDocument } from "@/lib/models/Question";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   connect();
-  const { questionId } = await req.json();
+
+  const { searchParams } = new URL(req.url);
+  const questionId = searchParams.get("questionId");
   let questionToBeReturned: QuestionDocument | null;
   try {
     const question = await Question.findById(questionId);
