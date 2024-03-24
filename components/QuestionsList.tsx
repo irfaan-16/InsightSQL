@@ -8,7 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-export default async function QuestionsList({ questions }) {
+
+export default function QuestionsList({ questions }) {
   return (
     <Table className="max-w-[90%] m-auto">
       <TableHeader>

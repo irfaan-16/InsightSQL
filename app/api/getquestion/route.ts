@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connect from "@/lib/database/mongo";
 import Question, { QuestionDocument } from "@/lib/models/Question";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   connect();
   const { questionId } = await req.json();

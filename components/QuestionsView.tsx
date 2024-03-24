@@ -3,8 +3,8 @@ import QuestionsList from "./QuestionsList";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const QuestionsView = async () => {
-  const questions = await getQuestions();
+const QuestionsView = ({ questions }) => {
+  // const questions = await getQuestions();
 
   return (
     <main className="flex flex-col items-center gap-4 p-4 md:gap-8 md:p-10 dark bg-zinc-950 min-h-screen">
@@ -25,7 +25,7 @@ const QuestionsView = async () => {
           </form>
         </div>
       </div>
-      <QuestionsList questions={[...questions]} />
+      <QuestionsList questions={questions} />
     </main>
   );
 };

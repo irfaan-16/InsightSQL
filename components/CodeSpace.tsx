@@ -1,5 +1,5 @@
 "use client";
-import { Cpu, Loader, Play, Terminal, UploadCloud } from "lucide-react";
+import {Loader, Play, Terminal, UploadCloud } from "lucide-react";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { useSession } from "next-auth/react";

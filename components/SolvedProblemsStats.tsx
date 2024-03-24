@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/progress";
 const SolvedProblemsStats = async ({ showFullStats, userId }) => {
   const id = new mongoose.Types.ObjectId(userId);
 
-  const questiondPipleLine = [
+  const questionsPipleLine = [
     { $group: { _id: "$difficulty", count: { $sum: 1 } } },
     { $group: { _id: null, result: { $push: { k: "$_id", v: "$count" } } } },
     { $replaceRoot: { newRoot: { $arrayToObject: "$result" } } },
@@ -57,7 +57,7 @@ const SolvedProblemsStats = async ({ showFullStats, userId }) => {
     },
   ];
 
-  const questions = await Question.aggregate(questiondPipleLine);
+  const questions = await Question.aggregate(questionsPipleLine);
 
   const userSubmission = await Submission.aggregate(submissionsPipleline);
   console.log(userSubmission, "subs");

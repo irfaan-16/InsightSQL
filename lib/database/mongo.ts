@@ -10,8 +10,6 @@ export const connect = async () => {
     process.env.MONGODB_URI as string,
     {
       dbName: "InsightSql",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     } as ConnectOptions
   );
 

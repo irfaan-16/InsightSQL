@@ -1,14 +1,21 @@
+"use client";
+import { useEffect, useState } from "react";
 import QuestionsView from "./QuestionsView";
-import SolvedProblemsStats from "./SolvedProblemsStats";
 
 const HomePage = () => {
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    const getQuestions = async () => {
+      const response = await fetch("/api/questions");
+      const { questions } = await response.json();
+      setQuestions(questions);
+    };
+    getQuestions();
+  }, []);
+
   return (
     <main>
-      <QuestionsView />
-      {/* <SolvedProblemsStats
-        showFullStats={true}
-        userId={"65d4ed4e4166221a0e2a2b57"}
-      /> */}
+      <QuestionsView questions={questions} />
     </main>
   );
 };

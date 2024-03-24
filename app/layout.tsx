@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   title: "InsightSQL",
   description: "A platform to test your SQL skills",
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
