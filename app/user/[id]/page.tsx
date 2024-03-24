@@ -1,10 +1,16 @@
 import SolvedProblemsStats from "@/components/SolvedProblemsStats";
+import connect from "@/lib/database/mongo";
 import User from "@/lib/models/User";
 import Image from "next/image";
 const page = async ({ params }) => {
-  const user = await User.findById(params.id);
+  async function findUser() {
+    "use server";
+    await connect();
+    const user = await User.findById(params.id);
+    return user;
+  }
+  const user = await findUser();
   console.log(user);
-
   return (
     <main className="p-6">
       <div className="flex gap-6 items-center bg-[#131317] rounded-md max-w-max p-4 m-auto">
