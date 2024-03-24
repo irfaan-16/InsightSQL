@@ -10,7 +10,7 @@ export async function getQuestions() {
 
 export async function getQuestionById(id: string) {
   await connect();
-  const question = await Question.findById(id);
+  const question = await Question.findById({ _id: id });
   return question;
 }
 

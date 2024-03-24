@@ -6,7 +6,7 @@ import {
 import CodeSpace from "./CodeSpace";
 import EditorSideView from "./EditorSideView";
 
-const QuestionDetails = async ({ question }) => {
+const QuestionDetails = ({ question }) => {
   return (
     <main className="bg-zinc-950 max-h-[calc(100vh-100px)] p-8 overflow-hidden">
       <ResizablePanelGroup
@@ -33,4 +33,5 @@ const QuestionDetails = async ({ question }) => {
     </main>
   );
 };
+
 export default QuestionDetails;

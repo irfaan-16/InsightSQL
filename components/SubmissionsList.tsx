@@ -24,7 +24,6 @@ interface Submission {
   _id: string;
 }
 const SubmissionsList = ({ questionId }) => {
-  console.log(questionId);
   const [submissions, setSubmissions] = useState<Submission[] | null>(null);
   const sessionData = useSession();
   const session: Session | null = sessionData.data as Session | null;

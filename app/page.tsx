@@ -1,5 +1,5 @@
-import QuestionsView from "@/components/QuestionsView";
+import HomePage from "@/components/HomePage";
 
 export default function Home() {
-  return <QuestionsView />;
+  return <HomePage />;
 }
