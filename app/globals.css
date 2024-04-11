@@ -96,3 +96,27 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+code.sql {
+  font-family: monospace;
+  background-color: #000;
+}
+
+.sql-hl-keyword {
+  color: #e91e63;
+}
+.sql-hl-function {
+  color: #ff0000;
+}
+.sql-hl-number {
+  color: #10fff2;
+}
+.sql-hl-string {
+  color: #10fff2;
+}
+.sql-hl-special {
+  color: #00ff9c;
+}
+.sql-hl-bracket {
+  color: #00ff9c;
+}

@@ -29,6 +29,7 @@
     "react-dom": "^18",
     "react-resizable-panels": "^2.0.9",
     "react-toastify": "^10.0.4",
+    "sql-highlight": "^4.4.2",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
   },

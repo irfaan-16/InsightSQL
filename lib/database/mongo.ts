@@ -3,6 +3,7 @@ let cachedDb: mongoose.Connection;
 
 export const connect = async () => {
   if (cachedDb) {
+    console.log("cached db");
     return cachedDb;
   }
 

@@ -64,4 +64,5 @@ if (mongoose.models.Question) {
 } else {
   QuestionModel = mongoose.model<QuestionDocument>("Question", questionSchema);
 }
+
 export default QuestionModel;

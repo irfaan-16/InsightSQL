@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-
 import {
   Table,
   TableBody,
@@ -20,8 +19,7 @@ interface Question {
   difficulty: string;
   examples: [{}];
 }
-
-export default function QuestionsList({ searchQuery }) {
+const QuestionsList = ({ searchQuery }) => {
   const [questions, setQuestions] = useState<[Question] | []>([]);
   useEffect(() => {
     const getQuestions = async () => {
@@ -68,4 +66,6 @@ export default function QuestionsList({ searchQuery }) {
       </TableBody>
     </Table>
   );
-}
+};
+
+export default QuestionsList;

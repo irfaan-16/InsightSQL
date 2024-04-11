@@ -1,19 +1,13 @@
-"use client";
-import { useState, useEffect } from "react";
 import QuestionDetails from "./QuestionDetails";
+import Question from "@/lib/models/Question";
 
-const SingleQuestionView = ({ questionId }) => {
-  const [question, setQuestion] = useState<Document | null>(null);
+async function getQuestion(questionId) {
+  const question = await Question.findById(questionId);
+  return question;
+}
 
-  useEffect(() => {
-    async function getQuestion() {
-      const response = await fetch(`/api/getquestion?questionId=${questionId}`);
-      const { question } = await response.json();
-      setQuestion(question);
-    }
-
-    getQuestion();
-  }, []);
+const SingleQuestionView = async ({ questionId }) => {
+  const question = await getQuestion(questionId);
   return <QuestionDetails question={question} />;
 };
 

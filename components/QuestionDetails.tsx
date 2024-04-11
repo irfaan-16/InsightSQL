@@ -7,9 +7,8 @@ import CodeSpace from "./CodeSpace";
 import EditorSideView from "./EditorSideView";
 
 const QuestionDetails = ({ question }) => {
-
   return (
-    <main className="bg-zinc-950 max-h-[calc(100vh-100px)] p-8 overflow-hidden">
+    <div className="bg-zinc-950 max-h-[calc(100vh-100px)] p-8 overflow-hidden">
       <ResizablePanelGroup
         direction="horizontal"
         className="overflow-auto min-h-[calc(100vh-100px)]"
@@ -31,7 +30,7 @@ const QuestionDetails = ({ question }) => {
           />
         </ResizablePanel>
       </ResizablePanelGroup>
-    </main>
+    </div>
   );
 };
 
