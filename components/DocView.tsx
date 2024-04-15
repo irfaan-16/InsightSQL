@@ -40,14 +40,15 @@ const DocView = async ({ language, topic }) => {
                 <h3 className="text-2xl mb-3">{section.snippetTitle}</h3>
                 <p className="mb-3">{section.snippetDesc}</p>
                 {section.snippet && (
-                  <div
-                    className="p-4 rounded-md bg-[#15202B]"
-                    dangerouslySetInnerHTML={{
-                      __html: highlight(section.snippet, {
-                        html: true,
-                      }),
-                    }}
-                  ></div>
+                  <div className="p-4 rounded-md bg-[#15202B]">
+                    <pre
+                      dangerouslySetInnerHTML={{
+                        __html: highlight(section.snippet, {
+                          html: true,
+                        }),
+                      }}
+                    ></pre>
+                  </div>
                 )}
               </div>
             )}

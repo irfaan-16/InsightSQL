@@ -13,7 +13,7 @@ const page = async ({ params }) => {
     <section className="flex gap-4 p-4 max-h-[calc(100vh-90px)] overflow-y-scroll">
       {topics.length > 0 ? (
         <>
-          <div className="sticky top-0 overflow-y-scroll min-w-60 pr-2">
+          <div className="sticky top-0 overflow-y-auto min-w-60 pr-2">
             <h2 className="p-2 bg-zinc-900 rounded-md sticky top-0 font-bold">
               {language.toUpperCase()} Tutorial
             </h2>

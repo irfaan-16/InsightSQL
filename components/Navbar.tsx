@@ -26,7 +26,7 @@ const Navbar = () => {
           <Link href="/docs/sql/sql_where">
             <h4>SQL Tutorial</h4>
           </Link>
-          <Link href="/docs/plsql/sdf">
+          <Link href="/docs/plsql/plsql_procedures">
             <h4>PL/SQL Tutorial</h4>
           </Link>
         </div>
